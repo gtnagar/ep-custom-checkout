@@ -1,5 +1,5 @@
-import { LineItemMap, ShopperCurrency, StoreCurrency } from '@bigcommerce/checkout-sdk';
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import { LineItemMap, PhysicalItem, ShopperCurrency, StoreCurrency } from '@bigcommerce/checkout-sdk';
+import React, { FunctionComponent, ReactNode, useEffect, useMemo } from 'react';
 
 import OrderSummaryHeader from './OrderSummaryHeader';
 import OrderSummaryItems from './OrderSummaryItems';
@@ -27,6 +27,20 @@ const OrderSummary: FunctionComponent<OrderSummaryProps & OrderSummarySubtotalsP
     ...orderSummarySubtotalsProps
 }) => {
     const nonBundledLineItems = useMemo(() => removeBundledItems(lineItems), [lineItems]);
+
+
+    useEffect(() => {
+        if (lineItems.physicalItems) {
+            const controller = new AbortController();
+            const signal = controller.signal;
+            const cartItemsToCheck = lineItems.physicalItems
+
+            cartItemsToCheck.forEach((item: PhysicalItem) => {
+                const product_id = item.productId
+            });
+        }
+
+    }, [lineItems])
 
     return (
         <article className="cart optimizedCheckout-orderSummary" data-test="cart">
