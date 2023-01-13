@@ -35,12 +35,41 @@ const OrderSummary: FunctionComponent<OrderSummaryProps & OrderSummarySubtotalsP
             const signal = controller.signal;
             const cartItemsToCheck = lineItems.physicalItems
 
-            cartItemsToCheck.forEach((item: PhysicalItem) => {
+            cartItemsToCheck.forEach(async (item: PhysicalItem) => {
                 const product_id = item.productId
+                const token = await createStoreFrontToken(signal)
+
             });
         }
 
     }, [lineItems])
+
+
+
+
+    async function createStoreFrontToken() {
+        const today = new Date()
+        const expiryDate = new Date(today)
+        expiryDate.setMinutes(today.getMinutes() + 5)
+        const timestamp = Math.floor(expiryDate.getTime() / 1000)
+
+        const res = await fetch(`https://cors-anywhere-titus.fly.dev/https://api.bigcommerce.com/stores/z4nszmjida/v3/storefront/api-token`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': 'go4gti32okubye0m7aiisgjkjm6dxhd'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                "allowed_cors_origins": [
+                    "https://empire-pro-sandbox.mybigcommerce.com"
+                ],
+                "channel_id": 1,
+                "expires_at": timestamp
+            }),
+        })
+        const jsonData = await res.json()
+        return jsonData.data.token
+    }
 
     return (
         <article className="cart optimizedCheckout-orderSummary" data-test="cart">
