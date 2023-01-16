@@ -22,7 +22,8 @@
     "generate": "npx nx run core:generate",
     "lint": "npx nx run-many --target=lint --all",
     "test": "npx nx run-many --target=test --all",
-    "test:watch": "npx nx run-many --target=test --all --watch"
+    "test:watch": "npx nx run-many --target=test --all --watch",
+    "start": "cd server && npm install --production && npm run start"
   },
   "repository": {
     "type": "git",
