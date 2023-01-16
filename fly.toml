@@ -8,6 +8,8 @@ processes = []
 [env]
   PORT = "8080"
   ACCESS_TOKEN = "<API_SECRET>"
+  STORE_HASH = "kr9c3dz9mi"
+  HOST = "https://ep-custom-checkout.fly.dev"
 
 [experimental]
   auto_rollback = true

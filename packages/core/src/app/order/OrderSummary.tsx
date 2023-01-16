@@ -32,28 +32,27 @@ const OrderSummary: FunctionComponent<OrderSummaryProps & OrderSummarySubtotalsP
     useEffect(() => {
         if (lineItems.physicalItems) {
             const controller = new AbortController();
-            const signal = controller.signal;
             const cartItemsToCheck = lineItems.physicalItems
 
             cartItemsToCheck.forEach(async (item: PhysicalItem) => {
-                const product_id = item.productId
-                const token = await createStoreFrontToken(signal)
-
+                // const product_id = item.productId
+                // const token = await createStoreFrontToken(controller)
+                await createStoreFrontToken(controller)
             });
         }
 
     }, [lineItems])
 
-
-
-
-    async function createStoreFrontToken() {
+    const createStoreFrontToken = async (controller: AbortController) => {
+        console.log(process.env.SERVER_URL, controller)
     }
 
     return (
         <article className="cart optimizedCheckout-orderSummary" data-test="cart">
             <OrderSummaryHeader>{headerLink}</OrderSummaryHeader>
-
+            <div>
+                Test
+            </div>
             <OrderSummarySection>
                 <OrderSummaryItems items={nonBundledLineItems} />
             </OrderSummarySection>
