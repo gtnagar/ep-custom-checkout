@@ -21,12 +21,11 @@ const config = {
 app.use((req, res, next) => {
     const allowedOrigins = env.ALLOWED_ORIGIN.split(", ")
     const origin = req.headers.origin;
-    console.log(allowedOrigins, origin)
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
+    console.log(allowedOrigins, origin)
 
-    res.setHeader('Access-Control-Allow-Origin', env.ALLOWED_ORIGIN);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     next();
@@ -50,9 +49,7 @@ app.get('/token', async (req, res) => {
     const api = axios.create(config);
 
     api.post("", {
-        "allowed_cors_origins": [
-            env.HOST
-        ],
+        "allowed_cors_origins": env.ALLOWED_ORIGIN.split(", "),
         "channel_id": 1,
         "expires_at": timestamp
     })
