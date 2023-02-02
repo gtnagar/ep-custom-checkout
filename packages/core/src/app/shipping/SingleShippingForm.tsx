@@ -269,7 +269,6 @@ class SingleShippingForm extends PureComponent<
 
     private onUseNewAddress: () => void = async () => {
         const { deleteConsignments, onUnhandledError = noop, setValues, values } = this.props;
-
         this.setState({ isResettingAddress: true });
 
         try {

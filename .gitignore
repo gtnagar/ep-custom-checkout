@@ -10,6 +10,7 @@ tests/screenshots/
 packages/core/src/app/generated/
 __temp__
 .idea
+.env
 .vscode
 /dist-tools
 /packages/**/generated
